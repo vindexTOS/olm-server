@@ -9,14 +9,14 @@ async function bootstrap() {
 
   const corsOptions: CorsOptions = {
     origin: '*',
-    methods: 'POST,GET',
+    methods: '*',
     credentials: true,
     optionsSuccessStatus: 204,
   };
 
   app.enableCors(corsOptions);
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT);
 }
 
 bootstrap();
