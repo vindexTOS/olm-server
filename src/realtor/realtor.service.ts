@@ -1,11 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { CreateRealtorDto } from './dto/create-realtor.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class RealtorService {
   constructor(private prismaService: PrismaService) {}
-  async createRealtor(createRealtorDto: CreateRealtorDto) {
+  async createRealtor(createRealtorDto: any) {
     try {
       await this.prismaService.realtor.create({ data: createRealtorDto });
       return { message: 'Agent was created' };

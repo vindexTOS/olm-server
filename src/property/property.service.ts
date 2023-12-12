@@ -1,18 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import {
-  CreatePropertyDto,
-  OwnerInformation,
-  PropertyInformation,
-} from './dto/create-property.dto';
+
 import { PrismaService } from 'src/prisma/prisma.service';
-import { QueryDataDto } from './dto/queryData.dt';
-import { UpdatePropertyDto } from './dto/update-property.dto';
 
 @Injectable()
 export class PropertyService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(query: QueryDataDto) {
+  async findAll(query: any) {
     try {
       const {
         page = 1,
@@ -70,7 +64,7 @@ export class PropertyService {
     }
   }
 
-  async updateProperty(propertyId: string, property: UpdatePropertyDto) {
+  async updateProperty(propertyId: string, property: any) {
     try {
       const updatedProperty = await this.prismaService.property.update({
         where: { id: propertyId },
@@ -100,14 +94,15 @@ export class PropertyService {
     }
   }
 
-  async createPropertyOwner(PropertyOwner: OwnerInformation) {
+  async createPropertyOwner(PropertyOwner: any) {
     try {
-      const checkPropertyOwner =
-        await this.prismaService.propertyOwner.findUnique({
+      const checkPropertyOwner = await this.prismaService.propertyOwner.findUnique(
+        {
           where: {
             email: PropertyOwner.email,
           },
-        });
+        },
+      );
 
       if (checkPropertyOwner) return checkPropertyOwner.id;
 
@@ -141,7 +136,7 @@ export class PropertyService {
     }
   }
 
-  async createProperty(ownerId: string, property: PropertyInformation) {
+  async createProperty(ownerId: string, property: any) {
     try {
       const createdProperty = await this.prismaService.property.create({
         // @ts-ignore

@@ -9,17 +9,15 @@ import {
   Req,
   UploadedFiles,
   UseInterceptors,
-  UploadedFile,
 } from '@nestjs/common';
-import { RealtorService } from './realtor.service';
-import { CreateRealtorDto } from './dto/create-realtor.dto';
+
 import { JwtAuthGuard } from 'src/guard/jwtAuthGuard';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { promises as fsPromises } from 'fs';
 
 @Controller('realtor')
 export class RealtorController {
-  constructor(private readonly realtorService: RealtorService) {}
+  constructor(private readonly realtorService: any) {}
 
   @UseInterceptors(FilesInterceptor('picture'))
   @UseGuards(JwtAuthGuard)

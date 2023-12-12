@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { adminCredintials } from './dtos/admin.login';
+
 import { JwtStrategy } from 'src/JWT/jwt.stategy';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class AdminService {
     private readonly jwtStrategy: JwtStrategy,
   ) {}
 
-  async findAdmin(data: adminCredintials) {
+  async findAdmin(data: any) {
     try {
       const admin = await this.prismaService.admin.findUnique({
         where: { userName: data.userName, password: data.password },

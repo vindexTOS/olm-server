@@ -9,12 +9,9 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { adminCredintials } from './dtos/admin.login';
-import { JwtAuthGuard } from 'src/guard/jwtAuthGuard';
-import { UpdatePropertyDto } from 'src/property/dto/update-property.dto';
-import { PropertyService } from 'src/property/property.service';
-import { CreatePropertyDto } from 'src/property/dto/create-property.dto';
-
+ import { JwtAuthGuard } from 'src/guard/jwtAuthGuard';
+ import { PropertyService } from 'src/property/property.service';
+ 
 @Controller('admin')
 export class AdminController {
   constructor(
@@ -23,13 +20,13 @@ export class AdminController {
   ) {}
 
   @Post('login')
-  login(@Body() body: adminCredintials) {
+  login(@Body() body: any) {
     console.log(body);
     return this.adminService.findAdmin(body);
   }
   @Post('createProperty')
   @UseGuards(JwtAuthGuard)
-  async createProperty(@Body() body: CreatePropertyDto) {
+  async createProperty(@Body() body: any) {
     const PropertyOwnerId = await this.PropertyService.createPropertyOwner(
       body.OwnerInformation,
     );
